@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  app:
+    build: docker/app
+    volumes:
+      - ./:/app
+    working_dir: /app
+  nginx:
+    image: nginx:1.21.5-alpine
+    links:
+      - app
+    ports:
+      - "777:80"
+    volumes:
+      - ./docker/nginx/configs:/etc/nginx:ro
+      - ./:/app
